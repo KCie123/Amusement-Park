@@ -1,0 +1,94 @@
+<!-- Karol Cieslikowski-->
+<!-- kciesl4@uic.edu -->
+
+<!-- Windows -->
+
+<!-- This project goes about using the amusement park homework and texture mapping -->
+<!-- Texture mapping is implemented for all scene objects. For "horses", the texture "zebra" is used. The rest of the carousel is made of "wood". The top cube is made of "plastic". "Bricks" are used for the floor.
+
+Camera movement left and right was implemented. For this, combinations Shift + A and Shift + D are used (just A and D are used to rotate right and left). You can press H to see a list of all keys.-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<script id="vertex-shader" type="x-shader/x-vertex">
+	attribute vec3 vPosition;
+	attribute vec3 vColor;
+	attribute vec3 vNormal;
+	attribute vec2 vTexCoord;
+
+	uniform mat4 uProjectionMatrix;
+	uniform mat4 uViewMatrix;
+	uniform mat4 uModelMatrix;
+	uniform mat3 uNormalMatrix;
+	uniform vec3 uCamera;
+
+	varying vec3 fPosition;
+	varying vec3 fColor;
+	varying vec3 fNormal;
+	varying vec2 fTexCoord;
+
+	void main()
+	{		
+		gl_Position = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(vPosition, 1.0);
+
+		fPosition = (uModelMatrix * vec4(vPosition, 1.0)).xyz;
+		fColor = vColor;		
+		fNormal = uNormalMatrix * vNormal;
+		fTexCoord = vTexCoord;
+	}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+	precision mediump float;
+
+	uniform vec3 uCamera; // camera position	
+	uniform sampler2D uTexture; // texture	
+
+	varying vec3 fPosition; // vertex position
+	varying vec3 fColor; // vertex color
+	varying vec3 fNormal; // vertex normal
+	varying vec2 fTexCoord; // textture coordinate
+
+	/* hard-coded lighting parameters */	
+	const vec3 LightPosition = vec3(10.0, 0.0, 0.0);
+	const vec3 LightIntensity = vec3(1., 1., 1.); 	
+	const vec3 ka = 0.3 * vec3(1., 1., 1.); // ambient coefficient
+	const vec3 kd = 0.7 * vec3(1., 1., 1.); // diffuse coefficient
+	const vec3 ks = 0.5 * vec3(1., 1., 1.); // specular coefficient
+	const float kn = 100.0; // shininess
+
+	void main()
+	{	
+		vec3 n = normalize(fNormal);
+		vec3 l = normalize(LightPosition - fPosition);	
+		vec3 v = normalize(uCamera - fPosition);
+		vec3 r = normalize(-l + 2.0 * dot(l, n) * n);
+		
+		vec3 ambient = LightIntensity * ka;	
+		vec3 diffuse = LightIntensity * kd * max(0., dot(l, n));	
+		vec3 specular = LightIntensity * ks * pow(max(0., dot(v, r)), kn);		
+		vec3 shading_color = clamp(ambient + diffuse + specular, 0., 1.);
+		//vec3 col = fColor * shading_color; 
+		vec3 col = /*fColor * */texture2D(uTexture, fTexCoord).xyz * shading_color; 
+
+		gl_FragColor = vec4(col, 1.0);
+	}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="HW4.js"></script>
+<script type="text/javascript" src="TruncatedCone.js"></script>
+<script type="text/javascript" src="Cube.js"></script>
+<script type="text/javascript" src="MerryGoRound.js"></script>
+<script type="text/javascript" src="World.js"></script>
+</head>
+
+<body>
+<canvas id="gl-canvas" width="512" height="512" tabindex="0">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>
