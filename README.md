@@ -39,3 +39,22 @@ The amusement park scene includes a carousel with horses, pillars, and a rotatin
       R: Reset camera to default position
       Q: Quit the program
       H or ?: Show help message
+   
+## How to Use the Project
+-Once the scene is loaded, the carousel will rotate automatically.
+-Use the camera controls to explore the scene.
+
+Amusement Park Scene
+│
+├── index.html        # Main HTML file for the WebGL canvas
+├── HW4.js            # Main JavaScript file for rendering the scene and handling input
+├── Cube.js           # Contains the Cube class for rendering cubes
+├── TruncatedCone.js  # Contains the TruncatedCone class for rendering horses and pillars
+├── MerryGoRound.js   # Contains the MerryGoRound class for the carousel logic
+├── World.js          # Manages the overall scene and floor rendering
+├── textures
+│   ├── wood.png      # Texture for the carousel wood parts
+│   ├── zebra.png     # Texture for the carousel horses
+│   ├── bricks.png    # Texture for the floor
+│   ├── plastic.png   # Texture for the top cube
+└── Common            # Utility files for WebGL (e.g., shader initialization)
