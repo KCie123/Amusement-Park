@@ -27,3 +27,15 @@ The amusement park scene includes a carousel with horses, pillars, and a rotatin
    ```bash
    git clone https://github.com/yourusername/amusement-park-scene.git
    cd amusement-park-scene
+
+2. Open the HW4.html file in your web browser.
+
+3. Use the following controls to navigate:
+   ```bash
+      W/S: Move camera forward/backward
+      A/D: Rotate camera left/right
+      Shift + A/D: Slide camera left/right
+      Arrow Up/Down: Rotate camera up/down
+      R: Reset camera to default position
+      Q: Quit the program
+      H or ?: Show help message
