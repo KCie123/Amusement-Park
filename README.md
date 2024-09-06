@@ -44,6 +44,9 @@ The amusement park scene includes a carousel with horses, pillars, and a rotatin
 -Once the scene is loaded, the carousel will rotate automatically.
 -Use the camera controls to explore the scene.
 
+## File Structure
+
+```bash
 Amusement Park Scene
 │
 ├── index.html        # Main HTML file for the WebGL canvas
