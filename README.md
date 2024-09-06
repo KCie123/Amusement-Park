@@ -42,6 +42,7 @@ The amusement park scene includes a carousel with horses, pillars, and a rotatin
    
 ## How to Use the Project
 -Once the scene is loaded, the carousel will rotate automatically.
+
 -Use the camera controls to explore the scene.
 
 ## File Structure
